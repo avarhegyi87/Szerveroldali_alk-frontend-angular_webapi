@@ -2,14 +2,17 @@
   <h1 class="mb-3">Edit Employee</h1>
   <div class="row">
     <div class="col-6">
-      <form #form="ngForm" (ngSubmit)="updateEmployee()">
+      <form [formGroup]="editEmployeeForm" (ngSubmit)="updateEmployee()">
+        <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
+          {{ error }}
+        </div>
         <div class="mb-3">
           <label for="id" class="form-label">Id</label>
           <input
             type="text"
             class="form-control"
             id="id"
-            name="id"
+            formControlName="id"
             [(ngModel)]="employeeDetails.id"
             readonly
           />
@@ -20,9 +23,20 @@
             type="text"
             class="form-control"
             id="inputFirstName"
-            name="firstName"
+            formControlName="inputFirstName"
             [(ngModel)]="employeeDetails.firstName"
+            [ngClass]="{
+              'is-invalid': submitted && f['inputFirstName'].errors
+            }"
           />
+          <div
+            *ngIf="submitted && f['inputFirstName'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['inputFirstName'].errors?.['required']">
+              First Name is required
+            </div>
+          </div>
         </div>
         <div class="mb-3">
           <label for="inputLastName" class="form-label">Last Name</label>
@@ -30,9 +44,20 @@
             type="text"
             class="form-control"
             id="inputLastName"
-            name="lastName"
+            formControlName="inputLastName"
             [(ngModel)]="employeeDetails.lastName"
+            [ngClass]="{
+              'is-invalid': submitted && f['inputLastName'].errors
+            }"
           />
+          <div
+            *ngIf="submitted && f['inputLastName'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['inputLastName'].errors?.['required']">
+              Last Name is required
+            </div>
+          </div>
         </div>
         <div class="mb-3">
           <label for="inputDepartment" class="form-label">Department</label>
@@ -40,9 +65,20 @@
             type="text"
             class="form-control"
             id="inputDepartment"
-            name="department"
+            formControlName="inputDepartment"
             [(ngModel)]="employeeDetails.department"
+            [ngClass]="{
+              'is-invalid': submitted && f['inputDepartment'].errors
+            }"
           />
+          <div
+            *ngIf="submitted && f['inputDepartment'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['inputDepartment'].errors?.['required']">
+              Department is required
+            </div>
+          </div>
         </div>
         <div class="mb-3">
           <label for="inputEmail" class="form-label">Email address</label>
@@ -50,9 +86,20 @@
             type="email"
             class="form-control"
             id="inputEmail"
-            name="email"
+            formControlName="inputEmail"
             [(ngModel)]="employeeDetails.email"
+            [ngClass]="{
+              'is-invalid': submitted && f['inputEmail'].errors
+            }"
           />
+          <div
+            *ngIf="submitted && f['inputEmail'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['inputEmail'].errors?.['pattern']">
+              Enter a valid email address
+            </div>
+          </div>
         </div>
         <div class="mb-3">
           <label for="inputPhone" class="form-label">Phone</label>
@@ -60,7 +107,7 @@
             type="text"
             class="form-control"
             id="inputPhone"
-            name="phone"
+            formControlName="inputPhone"
             [(ngModel)]="employeeDetails.phone"
           />
         </div>
@@ -70,7 +117,7 @@
             type="text"
             class="form-control"
             id="inputDevice"
-            name="device"
+            formControlName="inputDevice"
             [(ngModel)]="employeeDetails.device"
           />
         </div>
