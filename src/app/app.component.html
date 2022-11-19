@@ -2,6 +2,7 @@
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="/">IT Provisioning Tool</a>
     <button
+      (click)="toggleNavbarCollapsing()"
       class="navbar-toggler"
       type="button"
       data-bs-toggle="collapse"
@@ -12,7 +13,11 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarText">
+    <div
+      [class.collapse]="navbarCollapsed"
+      class="collapse navbar-collapse"
+      id="navbarText"
+    >
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
@@ -46,12 +51,13 @@
             aria-current="page"
             (click)="logout()"
             *ngIf="currentUser"
+            style="cursor: pointer"
             >Log Out</a
           >
         </li>
       </ul>
-      <span class="navbar-text" *ngIf="currentUser">
-        Logged in as {{ currentUser.firstName }} {{ currentUser.lastName }}
+      <span class="navbar-text" *ngIf="currentUser && navbarCollapsed">
+        Logged in as: {{ currentUser.firstName }} {{ currentUser.lastName }}
       </span>
     </div>
   </div>
