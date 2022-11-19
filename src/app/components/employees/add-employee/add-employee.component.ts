@@ -51,7 +51,6 @@ export class AddEmployeeComponent implements OnInit {
     this.error = '';
     this.submitted = true;
 
-    console.log(this.addEmployeeForm.status);
     if (this.addEmployeeForm.invalid) {
       this.error = 'Incomplete form';
       return;
